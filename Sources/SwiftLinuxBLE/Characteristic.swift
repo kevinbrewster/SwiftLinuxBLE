@@ -24,7 +24,7 @@ public class Characteristic<Value: DataConvertible> : CharacteristicType {
     
     /*
      // Default arguments cause segfault in swift 5.1
-    init(wrappedValue value: Value, uuid: BluetoothUUID, _ properties: BitMaskOptionSet<GATT.Characteristic.Property>, _ permissions: BitMaskOptionSet<GATT.Permission>? = nil, _ descriptors: [GATT.Characteristic.Descriptor]? = nil) {
+    public init(wrappedValue value: Value, uuid: BluetoothUUID, _ properties: BitMaskOptionSet<GATT.Characteristic.Property>, _ permissions: BitMaskOptionSet<GATT.Permission>? = nil, _ descriptors: [GATT.Characteristic.Descriptor]? = nil) {
         self.value = value
         self.uuid = uuid
         self.properties = properties
@@ -33,7 +33,7 @@ public class Characteristic<Value: DataConvertible> : CharacteristicType {
         self.descriptors = descriptors ?? (properties.contains(.notify) ? [GATTClientCharacteristicConfiguration().descriptor] : [])
     }*/
     
-    init(wrappedValue value: Value, uuid: BluetoothUUID, _ properties: BitMaskOptionSet<GATT.Characteristic.Property>) {
+    public init(wrappedValue value: Value, uuid: BluetoothUUID, _ properties: BitMaskOptionSet<GATT.Characteristic.Property>) {
         self.value = value
         self.uuid = uuid
         self.properties = properties
