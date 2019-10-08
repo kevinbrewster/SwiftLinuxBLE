@@ -2,7 +2,7 @@
 
 SwiftLinuxBLE is a lightweight convenience wrapper for the [PureSwift BluetoothLinux library](https://github.com/PureSwift/BluetoothLinux).
 
-It enables you to very quickly create a BLE peripheral on linux (for example, on the Raspberry Pi).
+It enables you to very quickly create a BLE GATT peripheral on linux (for example, on the Raspberry Pi).
 
 # Usage
 
@@ -51,6 +51,10 @@ public final class ThermometerPeripheral : SwiftLinuxBLE.Peripheral {
     }
 }
 ```
+
+Example:
+
+Check out the [SwiftLinuxGATTServerExample](https://github.com/kevinbrewster/SwiftLinuxGATTServerExample) for a working example.
 
 
 
