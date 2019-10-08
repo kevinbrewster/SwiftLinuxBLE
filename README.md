@@ -52,7 +52,7 @@ public final class ThermometerPeripheral : SwiftLinuxBLE.Peripheral {
 }
 ```
 
-Example:
+# Example:
 
 Check out the [SwiftLinuxGATTServerExample](https://github.com/kevinbrewster/SwiftLinuxGATTServerExample) for a working example.
 
