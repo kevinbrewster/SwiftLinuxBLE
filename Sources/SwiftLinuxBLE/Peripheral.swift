@@ -3,7 +3,7 @@ import Bluetooth
 import GATT
 import BluetoothLinux
 
-protocol Peripheral : class {
+public protocol Peripheral : class {
     var peripheral: GATTPeripheral<HostController, L2CAPSocket> { get }
     var services: [Service] { get set }
     var characteristicsByHandle: [UInt16: CharacteristicType] { get set }

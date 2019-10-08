@@ -4,7 +4,7 @@ import GATT
 import BluetoothLinux
 
 
-protocol CharacteristicType {
+public protocol CharacteristicType {
     var uuid: BluetoothUUID { get }
     var properties: BitMaskOptionSet<GATT.Characteristic.Property> { get }
     var permissions: BitMaskOptionSet<GATT.Permission> { get }
@@ -15,12 +15,12 @@ protocol CharacteristicType {
 }
 
 @propertyWrapper
-class Characteristic<Value: DataConvertible> : CharacteristicType {
+public class Characteristic<Value: DataConvertible> : CharacteristicType {
     var value: Value
-    let uuid: BluetoothUUID
-    var properties: BitMaskOptionSet<GATT.Characteristic.Property> = [.read, .write]
-    var permissions: BitMaskOptionSet<GATT.Permission> = [.read, .write]
-    let descriptors: [GATT.Characteristic.Descriptor]
+    public let uuid: BluetoothUUID
+    public var properties: BitMaskOptionSet<GATT.Characteristic.Property> = [.read, .write]
+    public var permissions: BitMaskOptionSet<GATT.Permission> = [.read, .write]
+    public let descriptors: [GATT.Characteristic.Descriptor]
     
     /*
      // Default arguments cause segfault in swift 5.1
@@ -42,16 +42,16 @@ class Characteristic<Value: DataConvertible> : CharacteristicType {
         self.descriptors = (properties.contains(.notify) ? [GATTClientCharacteristicConfiguration().descriptor] : [])
     }
     
-    var wrappedValue: Value {
+    public var wrappedValue: Value {
         get { value }
         set { value = newValue; didSet(data) }
     }
     
-    var data: Data {
+    public var data: Data {
         get { return value.data }
         set { value = Value(data: newValue) ?? value }
     }
-    var didSet: (Data) -> Void = { _ in }
+    public var didSet: (Data) -> Void = { _ in }
 }
 
 

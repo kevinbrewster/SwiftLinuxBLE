@@ -1,18 +1,18 @@
 import Foundation
 
-protocol DataConvertible {
+public protocol DataConvertible {
     init?(data: Data)
     var data: Data { get }
 }
 extension DataConvertible where Self: ExpressibleByIntegerLiteral{
-    init?(data: Data) {
+    public init?(data: Data) {
         var value: Self = 0
         guard data.count == MemoryLayout.size(ofValue: value) else { return nil }
         _ = withUnsafeMutableBytes(of: &value, { data.copyBytes(to: $0)} )
         self = value
     }
 
-    var data: Data {
+    public var data: Data {
         return withUnsafeBytes(of: self) { Data($0) }
     }
 }
@@ -24,20 +24,20 @@ extension Double : DataConvertible { }
 
 
 extension String: DataConvertible {
-    init?(data: Data) {
+    public init?(data: Data) {
         self.init(data: data, encoding: .utf8)
     }
-    var data: Data {
+    public var data: Data {
         // Note: a conversion to UTF-8 cannot fail.
         return Data(self.utf8)
     }
 }
 
 extension Data : DataConvertible {
-    init?(data: Data) {
+    public init?(data: Data) {
         self.init(data)
     }
-    var data: Data {
+    public var data: Data {
         return self
     }
 }

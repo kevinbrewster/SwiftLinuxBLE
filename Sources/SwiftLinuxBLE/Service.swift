@@ -3,7 +3,7 @@ import Bluetooth
 import GATT
 import BluetoothLinux
 
-protocol Service : class {
+public protocol Service : class {
     var uuid: BluetoothUUID { get }
 }
 
