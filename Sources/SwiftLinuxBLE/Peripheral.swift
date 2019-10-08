@@ -9,7 +9,7 @@ public protocol Peripheral : class {
     var characteristicsByHandle: [UInt16: CharacteristicType] { get set }
 }
 extension Peripheral {
-    func advertise(name: GAPCompleteLocalName, services: [Service], iBeaconUUID: UUID? = nil) throws {
+    public func advertise(name: GAPCompleteLocalName, services: [Service], iBeaconUUID: UUID? = nil) throws {
         // Advertise services and peripheral name
         let serviceUUIDs = GAPIncompleteListOf128BitServiceClassUUIDs(uuids: services.map { UUID(bluetooth: $0.uuid) })
         let encoder = GAPDataEncoder()
@@ -25,7 +25,7 @@ extension Peripheral {
             try peripheral.controller.iBeacon(beacon, flags: flags, interval: .min, timeout: .default)
         }
     }
-    func add(service: Service) {
+    public func add(service: Service) {
         do {
             // Find all the characteristics for the service
             let characteristics = Mirror(reflecting: service).children.compactMap {
@@ -61,7 +61,7 @@ extension Peripheral {
         }
     }
     
-    func didWrite(_ confirmation: GATTWriteConfirmation<Central>) {
+    public func didWrite(_ confirmation: GATTWriteConfirmation<Central>) {
         if var characteristic = characteristicsByHandle[confirmation.handle] {
             characteristic.data = confirmation.value
         }
