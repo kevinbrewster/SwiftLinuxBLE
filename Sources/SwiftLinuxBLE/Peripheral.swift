@@ -45,7 +45,7 @@ extension Peripheral {
             print("Characteristic \(characteristic.uuid) with permissions \(characteristic.permissions) and \(characteristic.descriptors.count) descriptors")
             
             // Register as observer for each characteristic
-            characteristic.didSet = { [weak self] in
+            characteristic.didSet { [weak self] in
                 NSLog("MyPeripheral: characteristic \(characteristic.uuid) did change with new value \($0)")
                 self?.peripheral[characteristic: handle] = $0
             }

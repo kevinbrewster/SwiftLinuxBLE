@@ -11,7 +11,9 @@ public protocol CharacteristicType {
     var descriptors: [GATT.Characteristic.Descriptor] { get }
     
     var data: Data { get set }
-    var didSet: (Data) -> Void { get set }
+    //var didSet: (Data) -> Void { get set }
+    
+    func didSet(_ observer: @escaping (Data) -> Void)
 }
 
 @propertyWrapper
@@ -44,14 +46,26 @@ public class Characteristic<Value: DataConvertible> : CharacteristicType {
     
     public var wrappedValue: Value {
         get { value }
-        set { value = newValue; didSet(data) }
+        set {
+            value = newValue;
+            for observer in observers {
+                observer(newValue)
+            }
+        }
     }
     
     public var data: Data {
-        get { return value.data }
-        set { value = Value(data: newValue) ?? value }
+        get { return wrappedValue.data }
+        set { wrappedValue = Value(data: newValue) ?? wrappedValue }
     }
-    public var didSet: (Data) -> Void = { _ in }
+    
+    private var observers: [(Value) -> Void] = []
+    public func didSet(_ observer: @escaping (Value) -> Void) {
+        observers += [observer]
+    }
+    public func didSet(_ observer: @escaping (Data) -> Void) {
+        observers += [{ observer($0.data) }]
+    }
 }
 
 
