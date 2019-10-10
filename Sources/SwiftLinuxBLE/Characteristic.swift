@@ -66,6 +66,9 @@ public class Characteristic<Value: DataConvertible> : CharacteristicType {
     public func didSet(_ observer: @escaping (Data) -> Void) {
         observers += [{ observer($0.data) }]
     }
+    public func didSet(_ observer: @escaping () -> Void) {
+        observers += [{ _ in observer() }]
+    }
 }
 
 
